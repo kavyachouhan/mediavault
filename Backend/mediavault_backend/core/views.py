@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from django.conf import settings
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from .models import User
 from django.urls import reverse
 import logging
@@ -119,6 +119,10 @@ def login_view(request):
             return render(request, 'login.html', {'error': 'Email not found'})
     
     return render(request, 'login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
 
 def verify_email(request, token):
     try:
